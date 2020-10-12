@@ -1,8 +1,8 @@
 import boto3
 import time
 #credentials
-access_key = "AKIAUBMTWV22HUMTHQPD"
-access_secret = "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"
+access_key = "AKIAUBMTWV22FPEBQQ57"
+access_secret = "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"
 region ="us-west-1"
 queue_url = "https://sqs.us-west-1.amazonaws.com/277872029364/Azteca-Tasks"
 #remove the most recent message from the queue
