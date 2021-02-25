@@ -27,7 +27,7 @@ while (True):
                 message = pop_message(client, queue_url)
                 print(message)
                 if message == "Turn on projector":
-                        driver.turnOnProjectors()
+                        driver.turnOnProjector()
                         #start projector
                 #add other command interfaces here
                 time.sleep(waittime)

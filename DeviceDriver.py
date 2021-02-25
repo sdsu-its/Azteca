@@ -9,9 +9,8 @@ from PIL import Image, ImageTk
 
 class DeviceDriver:
     def turnOnProjector(self):
-        print("turning on projector")
+        print("projector turned on")
 def showPIL(pilImage):
-        print("turn on image")
         root = tkinter.Tk()
         w, h = root.winfo_screenwidth(), root.winfo_screenheight()
         root.overrideredirect(1)
@@ -32,7 +31,7 @@ def showPIL(pilImage):
         root.mainloop()
 
 class ImageDriver(DeviceDriver):
-    def turnOnProjectors(self):
-        #super().turnOnProjector()
+    def turnOnProjector(self):        
         pilImage = Image.open(r"C:\Users\andre\Pictures\birthdayBackground.PNG")
         showPIL(pilImage)
+        super().turnOnProjector()
