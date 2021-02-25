@@ -8,8 +8,22 @@ else:
 from PIL import Image, ImageTk
 
 class DeviceDriver:
-    def turnOnProjector(self):
-        print("projector turned on")
+    def ShowPC(self):
+        print("showing PC")
+    def LightsOn(self):
+        print("turning on the lights")
+    def LightsOff(self):
+        print("turning off the lights")
+    def ShowMac(self):
+        print("showing mac")
+    def ShowVGA(self):
+        print("showing VGA")
+    def ShowHDMI(self):
+        print("showing HDMI")
+    def MuteAudio(self):
+        print("Muting Audio")
+    def UnmuteAudio(self):
+        print("unmuting audio")
 def showPIL(pilImage):
         root = tkinter.Tk()
         w, h = root.winfo_screenwidth(), root.winfo_screenheight()
@@ -30,8 +44,4 @@ def showPIL(pilImage):
         imagesprite = canvas.create_image(w/2,h/2,image=image)
         root.mainloop()
 
-class ImageDriver(DeviceDriver):
-    def turnOnProjector(self):        
-        pilImage = Image.open(r"C:\Users\andre\Pictures\birthdayBackground.PNG")
-        showPIL(pilImage)
-        super().turnOnProjector()
+#class ImageDriver(DeviceDriver):
