@@ -5,15 +5,27 @@ from Client import Client
 #read from queue for new events every waitTime
 waitTime = 1
 client = Client(waitTime)
-
+from multiprocessing import Process
+import socket
+def sendMessage(message):
+        s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('10.128.75.211',10000))
+        s.sendall(message)
+        return
 #create a driver to translate messages from the queue into device instructions
 import DeviceDriver
 driver=DeviceDriver.DeviceDriver()
-
+import socket
+s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(('10.128.75.211',10000))
 while (True):
         try:
                 #check queue for messages
                 intent_name = client.pop_message()
+                
+                p= Process(target=sendMessage,args=(intent_name.encode('utf-8'),))
+                p.start()
+                print(intent_name)       
                 if intent_name == "ShowPC":
                         driver.ShowPC()
                 elif intent_name == "LightsOn":
