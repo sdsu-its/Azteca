@@ -1,4 +1,4 @@
-# Azteca
+# AztecA
 Alexa Classroom interface
 This project is meant to allow professors to control smart learning spaces with the alexa voice assistant.
 1. The workflow starts with an "Alexa skill" that interprets the intent of the input voice commands.
