@@ -1,0 +1,83 @@
+import boto3
+
+access_key = ""
+access_secret = ""
+region =""
+queue_url = ""
+
+def build_speechlet_response(title, output, reprompt_text, should_end_session):
+    return {
+        'outputSpeech': {
+            'type': 'PlainText',
+            'text': output
+        },
+        'card': {
+            'type': 'Simple',
+            'title': "SessionSpeechlet - " + title,
+            'content': "SessionSpeechlet - " + output
+        },
+        'reprompt': {
+            'outputSpeech': {
+                'type': 'PlainText',
+                'text': reprompt_text
+            }
+        },
+        'shouldEndSession': should_end_session
+    }
+
+def build_response(session_attributes, speechlet_response):
+    return {
+        'version': '1.0',
+        'sessionAttributes': session_attributes,
+        'response': speechlet_response
+    }
+
+def post_message(client, message_body, url):
+    response = client.send_message(QueueUrl = url, MessageBody= message_body)
+    
+def lambda_handler(event, context):
+    client = boto3.client('sqs', aws_access_key_id = access_key, aws_secret_access_key = access_secret, region_name = region)
+    intent_name = event['request']['intent']['name']
+    device_id = event['context']['System']['device']['deviceId']
+    #if intent_name == "HelloWorldIntent":
+    #    post_message(client, 'hi', queue_url)
+    #    message = "will do"
+    if intent_name == "ShowPC":
+        message = "showing PC"
+    elif intent_name == "LightsOn":
+        message="turning on the lights"
+    elif intent_name == "LightsOff":
+        message="turning off the lights"
+    elif intent_name == "ShowMac":
+        message="showing mac"
+    elif intent_name == "ShowHDMI":
+        message="showing HDMI"
+    elif intent_name == "MuteAudio":
+        message="Muting Audio"
+    elif intent_name == "UnmuteAudio":
+        message="unmuting audio"
+    elif intent_name == "ProjectorOn":
+        message="turning on projector"
+    elif intent_name == "ProjectorOff":
+        message="turning off projector"
+    elif intent_name == "ShowUsb":
+        message="showing usb"
+    elif intent_name == "ShowDvd":
+        message="showing dvd"
+    elif intent_name == "ShowCam":
+        message="showing doc cam"
+    elif intent_name == "SetVolume":
+        amplitude=0
+        message="volume changed to"
+    elif intent_name == "ShowUsb":
+        message="showing usb"
+    elif intent_name == "FreezeVideo":
+        message="Freezing Video"
+    elif intent_name == "MuteVideo":
+        message="muting video"
+    else:
+        message = "Okay"
+    post_message(client, intent_name, queue_url)
+    #post_message(client, device_id, queue_url)
+    speechlet = build_speechlet_response("Mirror Status", message, "", "true")
+    return build_response({}, speechlet)
